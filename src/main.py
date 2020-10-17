@@ -43,7 +43,6 @@ def crawlspecific(y,i):
 
 def crawlsearch(text):
     crawlSearch.crawlSearch(text)
-    print(crawlSearch.d)
     pd.DataFrame(crawlSearch.d,columns = crawlSearch.d.keys()).to_csv('../csv/search.csv',index = False)
     return crawlSearch.d
 
