@@ -15,12 +15,10 @@ import trans
 
 url = 'https://onlinelibrary.wiley.com/toc/14680262/'
 
-# 要加header，可以不用cookies，不然被反爬，爬不到什么实质内容
 headers = {
     'User-Agent':'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:60.0) Gecko/20100101 Firefox/60.0'
 }
 
-# 存储爬到的内容（日期、文章doi，文章下载地址，标题）
 d = {'date':[],'doi':[],'href':[],'title':[],'abstract':[],'摘要':[]}
 
 ################################################################################
@@ -67,7 +65,6 @@ def CrawlMain(year, volume, issue):
             except Exception:
                 abstract.append('No abstract！')
                 chinese.append('没有摘要！')
-                # print('摘要为空')
             else:
                 # print(4)
                 ab = soup1.find(class_ = 'article-section__content en main').text.strip()
@@ -84,4 +81,3 @@ def CrawlMain(year, volume, issue):
     d['title'].extend(title)
     d['摘要'].extend(chinese)
     # print(year,d)
-#     return pd.DataFrame(d,columns=['date','title','doi','href','abstract']),d
