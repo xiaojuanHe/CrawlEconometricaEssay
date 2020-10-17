@@ -13,12 +13,12 @@
 
 
 例1：用户向爬取最新一期的文章   
-	代码：python main.py crawlLatest  
+	> 代码：python main.py crawlLatest  
 
 
 例2：用户想要爬取2015年第5期的全部文章   
-	代码:python main.py crawlSpecial -y 2015 -i 5 
+	> 代码:python main.py crawlSpecial -y 2015 -i 5 
 
 
 例2：用户想爬取关于关键词network的文章  
-	代码：python main.py crawlSearch -s network  
+	> 代码：python main.py crawlSearch -s network  
