@@ -24,12 +24,6 @@ def crawlhistory():
         time.sleep(1)
     pd.DataFrame(CrawlMain.d,columns = CrawlMain.d.keys()).to_csv('../csv/history.csv',index = False)
     return CrawlMain.d
-    
-# def crawlhistory():
-#     d = crawlmain()
-#     d1 = CrawlAbstract.CrawlAbstract(d)
-#     pd.DataFrame(d1,columns = d1.keys()).to_csv('../csv/history.csv',index = False)
-#     return d1
 
 def crawllatest():
     y,v,i = CrawlLatest.getVolumeIssue()
