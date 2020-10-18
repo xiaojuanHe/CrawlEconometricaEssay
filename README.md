@@ -1,6 +1,6 @@
 # CrawlEconometricaEssay
 ## 功能
-    自定义爬取期刊网站https://onlinelibrary.wiley.com/journal/14680262/上的期刊。  
+   自定义爬取期刊网站https://onlinelibrary.wiley.com/journal/14680262/上的期刊。  
 	
 ## 使用方法
 ```
@@ -26,3 +26,5 @@ python main.py <command> [options]
 ```
 	python main.py crawlSearch -s network  
 ```
+## 注意
+   因为使用的翻译包是谷歌翻译，所以要成功运行代码需要使用VPN。
