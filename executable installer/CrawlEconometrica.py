@@ -147,7 +147,7 @@ def crawlhistory():
     y = 2020
     v = 88
     # 第一卷为1999y，67v
-    while y > 2018 and v > 66:
+    while y > 1998 and v > 66:
         for i in range(1,7):
             crawlMain(y,v,i)
         y -= 1
