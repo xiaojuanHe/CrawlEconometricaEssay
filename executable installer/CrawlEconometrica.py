@@ -125,6 +125,7 @@ def crawllatest():
     return d
 
 def latestGUI():
+    global wind1
     window.destroy()
     wind1 = tk.Tk()
     wind1.title("Latest")
@@ -137,8 +138,8 @@ def latestGUI():
     img = tk.PhotoImage(file ='png.gif')
     label_img = tk.Label(wind1,image = img) 
     label_img.pack()
-    b1 = tk.Button(wind1, text = '开始',command = crawllatest,height = 15,width = 10).place(x = 150,y = 70)
-    b2 = tk.Button(wind1, text = '返回上一级',command = mainGUI).place(x = 300, y =70)
+    b1 = tk.Button(wind1, text = '开始',command = crawllatest,width = 8).place(x = 150,y = 70)
+    b2 = tk.Button(wind1, text = '返回上一级',command = closeWind1).place(x = 300, y =70)
     # b1.place(x = 120, y = 20)
     # b1.pack(padx = 5,pady = 5)
     wind1.mainloop()
@@ -147,7 +148,7 @@ def crawlhistory():
     y = 2020
     v = 88
     # 第一卷为1999y，67v
-    while y > 1998 and v > 66:
+    while y > 2018 and v > 66:
         for i in range(1,7):
             crawlMain(y,v,i)
         y -= 1
@@ -158,6 +159,7 @@ def crawlhistory():
     return d
 
 def historyGUI():
+    global wind2
     window.destroy()
     wind2 = tk.Tk()
     wind2.title("History")
@@ -170,9 +172,10 @@ def historyGUI():
     img = tk.PhotoImage(file ='png.gif')
     label_img = tk.Label(wind2,image = img) 
     label_img.pack()
-    b1 = tk.Button(wind2, text = '开始',command = crawlhistory,height = 15,width = 10)
+    b1 = tk.Button(wind2, text = '开始',command = crawlhistory,width = 8).place(x = 150, y = 70)
+    b2 = tk.Button(wind2, text = '返回上一级',command = closeWind2).place(x = 300, y =70)    
     # b1.place(x = 120, y = 20)
-    b1.pack(padx = 5,pady = 5)
+    # b1.pack(padx = 5,pady = 5)
     wind2.mainloop()
 
 def crawlspecific(var_year, var_issue):
@@ -198,6 +201,7 @@ def crawlspecific(var_year, var_issue):
 
 def specificGUI():
     window.destroy()
+    global wind3
     wind3 = tk.Tk()
     wind3.title('Specific')
     screenwidth = wind3.winfo_screenwidth()
@@ -215,7 +219,8 @@ def specificGUI():
     var_issue = tk.StringVar()
     tk.Entry(wind3,textvariable = var_issue,width = 10).place(x = 100, y = 50)
 
-    tk.Button(wind3,text = '开始',command = lambda :crawlspecific(var_year,var_issue)).place(x=80,y = 80)
+    tk.Button(wind3,text = '开始',command = lambda :crawlspecific(var_year,var_issue),width = 5).place(x=35,y = 86)
+    tk.Button(wind3,text = '返回上一级',command = closeWind3).place(x = 110,y=86)
     wind3.mainloop()
 
 def crawlsearch(var_search):
@@ -226,64 +231,50 @@ def crawlsearch(var_search):
     return d
 
 def searchGUI():
+    global wind4
     window.destroy()
     wind4 = tk.Tk()
     wind4.title('crawlsearch')
 
     screenwidth = wind4.winfo_screenwidth()
     screenheight = wind4.winfo_screenheight()
-    alignstr = '%dx%d+%d+%d' % (200,100, (screenwidth-200)/2, (screenheight-100)/2)
+    alignstr = '%dx%d+%d+%d' % (200,80, (screenwidth-200)/2, (screenheight-80)/2)
     wind4.geometry(alignstr)
     wind4.resizable(0,0)
 
 
-    tk.Label(wind4, text = '请输入关键字：').place(x = 10, y = 20)
+    tk.Label(wind4, text = '请输入关键字：').place(x = 10, y = 10)
 
     var_search = tk.StringVar()
-    tk.Entry(wind4,textvariable = var_search,width = 10).place(x = 100, y = 20)
+    tk.Entry(wind4,textvariable = var_search,width = 12).place(x = 100, y = 10)
 
-    tk.Button(wind4,text = '开始',command = lambda :crawlsearch(var_search)).place(x=80,y = 50)
+    tk.Button(wind4,text = '开始',command = lambda :crawlsearch(var_search)).place(x=35,y = 47)
+    tk.Button(wind4,text = '返回上一级',command = closeWind4).place(x = 110, y = 47)
     wind4.mainloop()
 
+def closeWind1():
+    wind1.destroy()
+    mainGUI()
+
+def closeWind2():
+    wind2.destroy()
+    mainGUI()
+
+def closeWind3():
+    wind3.destroy()
+    mainGUI()
+
+def closeWind4():
+    wind4.destroy()
+    mainGUI()
+
 def mainGUI():
-    window1 = tk.Tk()
-    window1.title("爬虫小工具")
-    screenwidth = window1.winfo_screenwidth()
-    screenheight = window1.winfo_screenheight()
-    alignstr = '%dx%d+%d+%d' % (270,130, (screenwidth-270)/2, (screenheight-130)/2)
-    window1.geometry(alignstr)
-    window1.resizable(0,0)
-
-    l1 = tk.Label(window1,text = '请选择：')
-    l1.grid(column = 1, row = 2, padx = 30, pady = 30)
-
-    var = tk.StringVar()
-    ttk1 = ttk.Combobox(window1,width = 12, height = 8)
-    ttk1.grid(column = 3,row = 2,rowspan = 30)
-    ttk1.configure(state = 'readonly')
-    ttk1['value'] =['crawlHistory','crawlLatest','crawlSpecific','crawlSearch']
-    ttk1.current(0)
-
-
-    def click(*args):
-        if ttk1.get() == 'crawlHistory':
-            historyGUI()
-        elif ttk1.get() == 'crawlLatest':
-            latestGUI()
-        elif ttk1.get() == 'crawlSpecific':
-            specificGUI()
-        else:
-            searchGUI()
-    b1 = tk.Button(window1,text = '开始',command = click).place(x = 120 , y =70)
-
-    window1.mainloop()
-
-if __name__ == '__main__':
+    global window
     window = tk.Tk()
     window.title("爬虫小工具")
     screenwidth = window.winfo_screenwidth()
     screenheight = window.winfo_screenheight()
-    alignstr = '%dx%d+%d+%d' % (270,130, (screenwidth-270)/2, (screenheight-130)/2)
+    alignstr = '%dx%d+%d+%d' % (250,100, (screenwidth-250)/2, (screenheight-100)/2)
     window.geometry(alignstr)
     window.resizable(0,0)
 
@@ -307,6 +298,39 @@ if __name__ == '__main__':
             specificGUI()
         else:
             searchGUI()
-    b1 = tk.Button(window,text = '开始',command = click).place(x = 120 , y =70)
+    b1 = tk.Button(window,text = '开始',command = click,width = 8).place(x = 100 , y =65)
+
+    window.mainloop()
+
+if __name__ == '__main__':
+    window = tk.Tk()
+    window.title("爬虫小工具")
+    screenwidth = window.winfo_screenwidth()
+    screenheight = window.winfo_screenheight()
+    alignstr = '%dx%d+%d+%d' % (250,100, (screenwidth-250)/2, (screenheight-100)/2)
+    window.geometry(alignstr)
+    window.resizable(0,0)
+
+    l1 = tk.Label(window,text = '请选择：')
+    l1.grid(column = 1, row = 2, padx = 30, pady = 30)
+
+    var = tk.StringVar()
+    ttk1 = ttk.Combobox(window,width = 12, height = 8)
+    ttk1.grid(column = 3,row = 2,rowspan = 30)
+    ttk1.configure(state = 'readonly')
+    ttk1['value'] =['crawlHistory','crawlLatest','crawlSpecific','crawlSearch']
+    ttk1.current(0)
+
+
+    def click(*args):
+        if ttk1.get() == 'crawlHistory':
+            historyGUI()
+        elif ttk1.get() == 'crawlLatest':
+            latestGUI()
+        elif ttk1.get() == 'crawlSpecific':
+            specificGUI()
+        else:
+            searchGUI()
+    b1 = tk.Button(window,text = '开始',command = click,width = 8).place(x = 100 , y =65)
 
     window.mainloop()
